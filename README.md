@@ -42,13 +42,19 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 3. Configure a API Key (já configurada)
+### 3. Configure a API Key
 
-O arquivo `.env` já contém sua API Key do Gemini:
+Crie um arquivo `.env` na raiz do projeto com sua API Key do Google AI Studio:
 
 ```bash
-GOOGLE_API_KEY=AIzaSyBRruCqweQpdw2nAeaHQgqQ3HGGbosj4aI
+GOOGLE_API_KEY=sua_api_key_aqui
 ```
+
+**Como obter a API Key:**
+1. Acesse https://ai.google.dev/
+2. Clique em "Get API Key"
+3. Copie a chave gerada
+4. Cole no arquivo `.env`
 
 ### 4. Teste a instalação
 
