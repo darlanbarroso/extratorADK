@@ -295,7 +295,6 @@ pip install -r requirements.txt
 
 - **Desenvolvedor:** Darlan Barroso
 - **Email:** darlan.engemec@gmail.com
-- **Projeto Base:** ADK_BeSolution_LLM
 
 ---
 
