@@ -1,0 +1,75 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Configurações sensíveis
+.env
+.env.local
+*.key
+*.pem
+secrets/
+
+# Dados e modelos
+data/raw/*
+data/processed/*
+models/*.pkl
+models/*.h5
+models/*.pt
+
+# Logs
+*.log
+logs/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Testes
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Documentos temporários
+*.pdf
+*.docx
+*.xlsx
+!data/examples/*.pdf
+
+# Documentação interna/temporária
+RESUMO_FINAL.md
+RESUMO_PROJETO.md
+IMPLEMENTACAO.md
+COMANDOS_RAPIDOS.sh

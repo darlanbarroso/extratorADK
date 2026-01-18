@@ -1,0 +1,11 @@
+Este é um documento de exemplo para o ExtratorADK.
+
+O ExtratorADK é capaz de:
+- Extrair texto de documentos PDF
+- Analisar conteúdo usando IA
+- Gerar resumos e insights
+- Salvar resultados estruturados
+
+Teste o agente com comandos como:
+"liste os documentos"
+"extraia este arquivo"
