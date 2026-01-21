@@ -69,6 +69,65 @@ class DocumentValidator:
         }
 
     @staticmethod
+    def validate_cnpj(cnpj: str) -> Dict[str, Any]:
+        """
+        Valida CNPJ brasileiro.
+
+        Args:
+            cnpj: CNPJ no formato XX.XXX.XXX/XXXX-XX ou apenas números
+
+        Returns:
+            Dict com status e CNPJ formatado
+        """
+        # Remove caracteres não numéricos
+        cnpj_numbers = re.sub(r'\D', '', cnpj)
+
+        if len(cnpj_numbers) != 14:
+            return {
+                "valid": False,
+                "error": "CNPJ deve ter 14 dígitos",
+                "cnpj": cnpj
+            }
+
+        # Verifica se todos os dígitos são iguais
+        if cnpj_numbers == cnpj_numbers[0] * 14:
+            return {
+                "valid": False,
+                "error": "CNPJ inválido (dígitos repetidos)",
+                "cnpj": cnpj
+            }
+
+        # Calcula primeiro dígito verificador
+        peso1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+        soma = sum(int(cnpj_numbers[i]) * peso1[i] for i in range(12))
+        resto = soma % 11
+        primeiro_digito = 0 if resto < 2 else 11 - resto
+
+        # Calcula segundo dígito verificador
+        peso2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+        soma = sum(int(cnpj_numbers[i]) * peso2[i] for i in range(13))
+        resto = soma % 11
+        segundo_digito = 0 if resto < 2 else 11 - resto
+
+        # Valida dígitos verificadores
+        if int(cnpj_numbers[12]) != primeiro_digito or int(cnpj_numbers[13]) != segundo_digito:
+            return {
+                "valid": False,
+                "error": "Dígitos verificadores inválidos",
+                "cnpj": cnpj,
+                "expected": f"{cnpj_numbers[:12]}{primeiro_digito}{segundo_digito}"
+            }
+
+        # Formata CNPJ
+        cnpj_formatado = f"{cnpj_numbers[:2]}.{cnpj_numbers[2:5]}.{cnpj_numbers[5:8]}/{cnpj_numbers[8:12]}-{cnpj_numbers[12:]}"
+
+        return {
+            "valid": True,
+            "cnpj": cnpj_numbers,
+            "formatted": cnpj_formatado
+        }
+
+    @staticmethod
     def validate_cnh(cnh: str) -> Dict[str, Any]:
         """
         Valida CNH brasileira.

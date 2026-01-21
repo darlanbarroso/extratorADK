@@ -110,15 +110,54 @@ INSTRUÇÕES:
 - Retorne APENAS o JSON, sem explicações
 """,
 
-        "auto": """
-Analise esta imagem de um documento de identidade brasileiro e:
+        "cnpj": """
+Analise esta imagem de um Cartão CNPJ (Cadastro Nacional da Pessoa Jurídica) brasileiro e extraia TODAS as informações visíveis.
 
-1. IDENTIFIQUE o tipo de documento (RG, CNH ou CPF)
+Retorne um JSON com a seguinte estrutura:
+
+{
+  "tipo_documento": "CNPJ",
+  "numero_cnpj": "XX.XXX.XXX/XXXX-XX",
+  "razao_social": "Razão Social da Empresa",
+  "nome_fantasia": "Nome Fantasia (se houver)",
+  "data_abertura": "DD/MM/AAAA",
+  "situacao_cadastral": "ATIVA/SUSPENSA/INAPTA/BAIXADA",
+  "data_situacao_cadastral": "DD/MM/AAAA",
+  "natureza_juridica": "Código e descrição da natureza jurídica",
+  "cnae_principal": "Código e descrição da atividade principal",
+  "logradouro": "Tipo e nome do logradouro",
+  "numero": "Número do endereço",
+  "complemento": "Complemento do endereço",
+  "bairro": "Bairro",
+  "municipio": "Município",
+  "uf": "UF",
+  "cep": "XXXXX-XXX",
+  "telefone": "Telefone com DDD",
+  "email": "Email da empresa",
+  "capital_social": "Valor do capital social",
+  "porte": "ME/EPP/DEMAIS",
+  "data_impressao": "DD/MM/AAAA",
+  "observacoes": "Informações adicionais"
+}
+
+INSTRUÇÕES:
+- Extraia apenas texto visível e legível
+- O CNPJ deve estar no formato XX.XXX.XXX/XXXX-XX
+- Mantenha formatação original (CEP, telefone, etc)
+- Capital social deve incluir "R$" se visível
+- Se um campo não estiver visível, use null
+- Retorne APENAS o JSON, sem explicações
+""",
+
+        "auto": """
+Analise esta imagem de um documento brasileiro e:
+
+1. IDENTIFIQUE o tipo de documento (RG, CNH, CPF ou CNPJ)
 2. EXTRAIA todas as informações visíveis
 
 Retorne um JSON com a estrutura apropriada ao documento identificado.
 
-Para RG, CNH ou CPF, use as estruturas de dados padrão de cada documento.
+Para RG, CNH, CPF ou CNPJ, use as estruturas de dados padrão de cada documento.
 
 INSTRUÇÕES:
 - Primeiro identifique qual tipo de documento é
@@ -226,6 +265,10 @@ INSTRUÇÕES:
     def extract_cpf(self, image_path: str) -> Dict[str, Any]:
         """Extrai dados de um CPF"""
         return self.extract_from_image(image_path, "cpf")
+
+    def extract_cnpj(self, image_path: str) -> Dict[str, Any]:
+        """Extrai dados de um CNPJ"""
+        return self.extract_from_image(image_path, "cnpj")
 
     def extract_batch(self, image_paths: list, document_type: str = "auto") -> Dict[str, Any]:
         """
